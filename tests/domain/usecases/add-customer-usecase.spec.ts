@@ -6,8 +6,7 @@ const mockCustomer = (): Customer => ({
   cnpj: Math.random().toString(),
   corporateName: 'any',
   contactName: 'any',
-  phone: 'any',
-  address: ['cnpj']
+  phone: 'any'
 })
 
 type SutTypes = {

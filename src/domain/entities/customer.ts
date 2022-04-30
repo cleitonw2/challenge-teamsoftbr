@@ -3,5 +3,4 @@ export type Customer = {
   corporateName: string
   contactName: string
   phone: string
-  address: string[]
 }
