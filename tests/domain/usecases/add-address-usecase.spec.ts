@@ -1,5 +1,5 @@
 import { addAddressUseCase } from '@/domain/usecases'
-import { CheckAddressRepoSpy } from '@/tests/domain/mocks'
+import { CheckAddressRepoSpy, AddAddressRepoSpy } from '@/tests/domain/mocks'
 import { Address } from '@/domain/entities'
 
 const mockAddress = (): Address => ({
@@ -18,14 +18,17 @@ const mockAddress = (): Address => ({
 type SutTypes = {
   sut: any
   checkAddressRepoSpy: CheckAddressRepoSpy
+  addAddressRepoSpy: AddAddressRepoSpy
 }
 
 const makeSut = (): SutTypes => {
   const checkAddressRepoSpy = new CheckAddressRepoSpy()
-  const sut = addAddressUseCase(checkAddressRepoSpy)
+  const addAddressRepoSpy = new AddAddressRepoSpy()
+  const sut = addAddressUseCase(checkAddressRepoSpy, addAddressRepoSpy)
   return {
     sut,
-    checkAddressRepoSpy
+    checkAddressRepoSpy,
+    addAddressRepoSpy
   }
 }
 
@@ -45,5 +48,12 @@ describe('AddAddress UseCase', () => {
     checkAddressRepoSpy.result = true
     const addressExists = await sut(mockAddress())
     expect(addressExists).toBe(false)
+  })
+
+  it('Should call AddAddressRepo with correct params', async () => {
+    const { sut, addAddressRepoSpy } = makeSut()
+    const data = mockAddress()
+    await sut(data)
+    expect(addAddressRepoSpy.params).toEqual(data)
   })
 })
