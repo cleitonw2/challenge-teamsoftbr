@@ -39,4 +39,11 @@ describe('AddAddress UseCase', () => {
       cep: data.cep
     })
   })
+
+  it('Should return false if CheckAddressRepo returns true', async () => {
+    const { sut, checkAddressRepoSpy } = makeSut()
+    checkAddressRepoSpy.result = true
+    const addressExists = await sut(mockAddress())
+    expect(addressExists).toBe(false)
+  })
 })
