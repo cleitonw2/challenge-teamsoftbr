@@ -1,5 +1,14 @@
 import { addCustomerUseCase } from '@/domain/usecases'
 import { CheckCnpjRepoSpy } from '@/tests/domain/mocks'
+import { Customer } from '@/domain/entities'
+
+const mockCustomer = (): Customer => ({
+  cnpj: Math.random().toString(),
+  corporateName: 'any',
+  contactName: 'any',
+  phone: 'any',
+  address: ['cnpj']
+})
 
 type SutTypes = {
   sut: any
@@ -18,14 +27,15 @@ const makeSut = (): SutTypes => {
 describe('AddCustomer UseCase', () => {
   it('Should call CheckCnpjRepo with correct cnpj', async () => {
     const { sut, checkCnpjRepoSpy } = makeSut()
-    const cnpj = Math.random().toString()
-    await sut({
-      cnpj,
-      corporateName: 'any',
-      contactName: 'any',
-      phone: 'any',
-      address: ['any']
-    })
-    expect(checkCnpjRepoSpy.cnpj).toBe(cnpj)
+    const data = mockCustomer()
+    await sut(data)
+    expect(checkCnpjRepoSpy.cnpj).toBe(data.cnpj)
+  })
+
+  it('Should return false if CheckCnpjRepo true', async () => {
+    const { sut, checkCnpjRepoSpy } = makeSut()
+    checkCnpjRepoSpy.result = true
+    const customerExists = await sut(mockCustomer())
+    expect(customerExists).toBe(false)
   })
 })
