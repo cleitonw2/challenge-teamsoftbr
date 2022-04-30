@@ -35,7 +35,7 @@ describe('AddCustomer UseCase', () => {
     expect(checkCnpjRepoSpy.cnpj).toBe(data.cnpj)
   })
 
-  it('Should return false if CheckCnpjRepo true', async () => {
+  it('Should return false if CheckCnpjRepo return true', async () => {
     const { sut, checkCnpjRepoSpy } = makeSut()
     checkCnpjRepoSpy.result = true
     const customerExists = await sut(mockCustomer())
@@ -47,5 +47,12 @@ describe('AddCustomer UseCase', () => {
     const data = mockCustomer()
     await sut(data)
     expect(addCustomerRepoSpy.params).toEqual(data)
+  })
+
+  it('Should return false if AddCustomerRepo return false', async () => {
+    const { sut, addCustomerRepoSpy } = makeSut()
+    addCustomerRepoSpy.result = false
+    const isSuccessful = await sut(mockCustomer())
+    expect(isSuccessful).toBe(false)
   })
 })
