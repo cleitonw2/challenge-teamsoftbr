@@ -1,0 +1,13 @@
+POST http://localhost:3000/
+Content-Type: application/json
+
+{
+  "value": "any_value"
+}
+
+###
+GET http://localhost:3000/
+Content-Type: application/json
+
+###
+DELETE http://localhost:3000/134123412343234
