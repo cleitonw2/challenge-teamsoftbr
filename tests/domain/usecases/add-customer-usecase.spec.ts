@@ -55,4 +55,10 @@ describe('AddCustomer UseCase', () => {
     const isSuccessful = await sut(mockCustomer())
     expect(isSuccessful).toBe(false)
   })
+
+  it('Should return true on success', async () => {
+    const { sut } = makeSut()
+    const isSuccessful = await sut(mockCustomer())
+    expect(isSuccessful).toBe(true)
+  })
 })
