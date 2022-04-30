@@ -56,4 +56,10 @@ describe('AddAddress UseCase', () => {
     await sut(data)
     expect(addAddressRepoSpy.params).toEqual(data)
   })
+
+  it('Should retun true on success', async () => {
+    const { sut } = makeSut()
+    const result = await sut(mockAddress())
+    expect(result).toBe(true)
+  })
 })
