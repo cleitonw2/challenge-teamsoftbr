@@ -4,5 +4,6 @@ import { Customer } from '../entities'
 export const addCustomerUseCase =
   (chekCnpjRepo: CheckCnpjRepo) =>
     async (data: Customer) => {
-      await chekCnpjRepo.checkCnpj(data.cnpj)
+      const customerExists = await chekCnpjRepo.checkCnpj(data.cnpj)
+      if (customerExists) return false
     }
