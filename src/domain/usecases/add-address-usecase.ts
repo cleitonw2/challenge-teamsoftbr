@@ -10,6 +10,7 @@ export const addAddressUseCase =
   (checkAddressRepo: CheckAddressRepo) =>
     async (params: Address) => {
       const { addressNumber, cep } = params
-      await checkAddressRepo.check(addressNumber, cep)
+      const addressExists = await checkAddressRepo.check(addressNumber, cep)
+      if (addressExists) return false
       return true
     }
