@@ -1,3 +1,3 @@
-export interface DeleteCustomerRepo {
+export interface DeleteContentRepo {
   delete: (cnpj: string) => Promise<void>
 }
