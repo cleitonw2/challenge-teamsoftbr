@@ -1,17 +1,17 @@
-import { CheckCnpjRepo, AddCustomerRepo, LoadCustomerRepo, UpdateCustomerRepo, DeleteContentRepo } from '@/domain/contracts'
+import { CheckContentRepo, AddContentRepo, LoadContentRepo, UpdateContentRepo, DeleteContentRepo } from '@/domain/contracts'
 import { Customer } from '../entities'
 
-export class CheckCnpjRepoSpy implements CheckCnpjRepo {
+export class CheckCnpjRepoSpy implements CheckContentRepo<{ cnpj: string }> {
   cnpj: string
   result: boolean = false
 
-  async checkCnpj (cnpj: string): Promise<boolean> {
-    this.cnpj = cnpj
+  async check (params: { cnpj: string }): Promise<boolean> {
+    this.cnpj = params.cnpj
     return Promise.resolve(this.result)
   }
 }
 
-export class AddCustomerRepoSpy implements AddCustomerRepo {
+export class AddCustomerRepoSpy implements AddContentRepo<Customer> {
   params: Customer
   result: boolean = true
 
@@ -21,7 +21,7 @@ export class AddCustomerRepoSpy implements AddCustomerRepo {
   }
 }
 
-export class LoadCustomerRepoSpy implements LoadCustomerRepo {
+export class LoadCustomerRepoSpy implements LoadContentRepo<Customer | boolean> {
   cnpj: string
   result: Customer | boolean = {
     cnpj: Math.random().toString(),
@@ -36,7 +36,7 @@ export class LoadCustomerRepoSpy implements LoadCustomerRepo {
   }
 }
 
-export class UpdateCustomerRepoSpy implements UpdateCustomerRepo {
+export class UpdateCustomerRepoSpy implements UpdateContentRepo<Customer> {
   params: Customer
 
   async update (params: Customer): Promise<void> {

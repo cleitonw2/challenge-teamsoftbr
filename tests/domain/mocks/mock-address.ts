@@ -1,7 +1,12 @@
-import { CheckAddressRepo, AddAddressRepo, LoadAddressRepo, UpdateAddressRepo, DeleteContentRepo } from '@/domain/contracts'
+import { CheckContentRepo, AddContentRepo, LoadContentRepo, UpdateContentRepo, DeleteContentRepo } from '@/domain/contracts'
 import { Address } from '../entities'
 
-export class CheckAddressRepoSpy implements CheckAddressRepo {
+type Params = {
+  addressNumber: number
+  cep: string
+}
+
+export class CheckAddressRepoSpy implements CheckContentRepo<Params> {
   params: {
     addressNumber: number
     cep: string
@@ -9,13 +14,13 @@ export class CheckAddressRepoSpy implements CheckAddressRepo {
 
   result: boolean = false
 
-  async check (addressNumber: number, cep: string): Promise<boolean> {
-    this.params = { addressNumber, cep }
+  async check (params: Params): Promise<boolean> {
+    this.params = params
     return Promise.resolve(this.result)
   }
 }
 
-export class AddAddressRepoSpy implements AddAddressRepo {
+export class AddAddressRepoSpy implements AddContentRepo<Address> {
   params: Address
   result: boolean = true
 
@@ -25,7 +30,7 @@ export class AddAddressRepoSpy implements AddAddressRepo {
   }
 }
 
-export class LoadAddressRepoSpy implements LoadAddressRepo {
+export class LoadAddressRepoSpy implements LoadContentRepo<Address[] | []> {
   cnpj: string
   result: Address[] | [] = [{
     publicPlace: 'any',
@@ -46,7 +51,7 @@ export class LoadAddressRepoSpy implements LoadAddressRepo {
   }
 }
 
-export class UpdateAddressRepoSpy implements UpdateAddressRepo {
+export class UpdateAddressRepoSpy implements UpdateContentRepo<Address> {
   params: Address
 
   async update (params: Address): Promise<void> {
