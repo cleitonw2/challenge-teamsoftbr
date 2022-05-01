@@ -21,4 +21,11 @@ describe('LoadCustomer UseCase', () => {
     await sut('any_cnpj')
     expect(loadCustomerRepoSpy.cnpj).toBe('any_cnpj')
   })
+
+  it('Should return false if LoadCustomerRepo returns false', async () => {
+    const { sut, loadCustomerRepoSpy } = makeSut()
+    loadCustomerRepoSpy.result = false
+    const res = await sut('any_cnpj')
+    expect(res).toBe(false)
+  })
 })
