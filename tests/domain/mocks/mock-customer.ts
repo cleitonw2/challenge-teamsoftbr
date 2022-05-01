@@ -1,4 +1,4 @@
-import { CheckCnpjRepo, AddCustomerRepo, LoadCustomerRepo } from '@/domain/contracts'
+import { CheckCnpjRepo, AddCustomerRepo, LoadCustomerRepo, UpdateCustomerRepo } from '@/domain/contracts'
 import { Customer } from '../entities'
 
 export class CheckCnpjRepoSpy implements CheckCnpjRepo {
@@ -33,5 +33,14 @@ export class LoadCustomerRepoSpy implements LoadCustomerRepo {
   async load (cnpj: string): Promise<Customer | boolean> {
     this.cnpj = cnpj
     return Promise.resolve(this.result)
+  }
+}
+
+export class UpdateCustomerRepoSpy implements UpdateCustomerRepo {
+  params: Customer
+
+  async update (params: Customer): Promise<void> {
+    this.params = params
+    return Promise.resolve()
   }
 }
