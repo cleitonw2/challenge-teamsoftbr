@@ -1,4 +1,4 @@
-import { CheckAddressRepo, AddAddressRepo, LoadAddressRepo, UpdateAddressRepo } from '@/domain/contracts'
+import { CheckAddressRepo, AddAddressRepo, LoadAddressRepo, UpdateAddressRepo, DeleteContentRepo } from '@/domain/contracts'
 import { Address } from '../entities'
 
 export class CheckAddressRepoSpy implements CheckAddressRepo {
@@ -51,6 +51,15 @@ export class UpdateAddressRepoSpy implements UpdateAddressRepo {
 
   async update (params: Address): Promise<void> {
     this.params = params
+    return Promise.resolve()
+  }
+}
+
+export class DeleteAddressRepoSpy implements DeleteContentRepo {
+  cnpj: string
+
+  async delete (cnpj: string): Promise<void> {
+    this.cnpj = cnpj
     return Promise.resolve()
   }
 }
