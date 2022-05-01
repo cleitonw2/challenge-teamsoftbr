@@ -1,17 +1,20 @@
 import { loadCustomerUseCase, LoadCustomerUseCase } from '@/domain/usecases'
-import { LoadCustomerRepoSpy } from '@/tests/domain/mocks'
+import { LoadCustomerRepoSpy, LoadAddressRepoSpy } from '@/tests/domain/mocks'
 
 type SutTypes = {
   sut: LoadCustomerUseCase
   loadCustomerRepoSpy: LoadCustomerRepoSpy
+  loadAddressRepoSpy: LoadAddressRepoSpy
 }
 
 const makeSut = (): SutTypes => {
   const loadCustomerRepoSpy = new LoadCustomerRepoSpy()
-  const sut = loadCustomerUseCase(loadCustomerRepoSpy)
+  const loadAddressRepoSpy = new LoadAddressRepoSpy()
+  const sut = loadCustomerUseCase(loadCustomerRepoSpy, loadAddressRepoSpy)
   return {
     sut,
-    loadCustomerRepoSpy
+    loadCustomerRepoSpy,
+    loadAddressRepoSpy
   }
 }
 
@@ -27,5 +30,11 @@ describe('LoadCustomer UseCase', () => {
     loadCustomerRepoSpy.result = false
     const res = await sut('any_cnpj')
     expect(res).toBe(false)
+  })
+
+  it('Should call LoadAddressRepo with correct param', async () => {
+    const { sut, loadAddressRepoSpy } = makeSut()
+    await sut('any_cnpj')
+    expect(loadAddressRepoSpy.cnpj).toBe('any_cnpj')
   })
 })
