@@ -40,7 +40,7 @@ export class LoadAddressRepoSpy implements LoadContentRepo<Address[] | []> {
     city: 'any_city',
     state: 'any_state',
     cep: 'any_cep',
-    customerCep: 'any',
+    customerCnpj: 'any',
     latitude: 'any',
     longitude: 'any'
   }]

@@ -10,7 +10,7 @@ const mockAddress = (): Address => ({
   city: 'any_city',
   state: 'any_state',
   cep: 'any_cep',
-  customerCep: 'any'
+  customerCnpj: 'any'
 })
 
 type SutTypes = {

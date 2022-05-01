@@ -6,7 +6,7 @@ export type Address = {
   city: string
   state: string
   cep: string
-  customerCep: string
+  customerCnpj: string
   latitude?: string
   longitude?: string
 }
