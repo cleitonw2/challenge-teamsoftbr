@@ -1,4 +1,4 @@
-import { addCustomerUseCase } from '@/domain/usecases'
+import { addCustomerUseCase, AddCustomerUseCase } from '@/domain/usecases'
 import { CheckCnpjRepoSpy, AddCustomerRepoSpy } from '@/tests/domain/mocks'
 import { Customer } from '@/domain/entities'
 
@@ -10,7 +10,7 @@ const mockCustomer = (): Customer => ({
 })
 
 type SutTypes = {
-  sut: any
+  sut: AddCustomerUseCase
   checkCnpjRepoSpy: CheckCnpjRepoSpy
   addCustomerRepoSpy: AddCustomerRepoSpy
 }

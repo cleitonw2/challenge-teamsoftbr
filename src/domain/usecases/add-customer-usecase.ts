@@ -1,10 +1,7 @@
 import { AddCustomerRepo, CheckCnpjRepo } from '../contracts'
 import { Customer } from '../entities'
 
-type Params = { params: Customer }
-type Result = { result: boolean }
-
-export type AddCustomerUseCase = (params: Params) => Promise<Result>
+export type AddCustomerUseCase = (params: Customer) => Promise<boolean>
 
 export const addCustomerUseCase =
   (chekCnpjRepo: CheckCnpjRepo, addCustomerRepo: AddCustomerRepo) =>

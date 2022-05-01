@@ -1,4 +1,4 @@
-import { addAddressUseCase } from '@/domain/usecases'
+import { addAddressUseCase, AddAddressUseCase } from '@/domain/usecases'
 import { CheckAddressRepoSpy, AddAddressRepoSpy } from '@/tests/domain/mocks'
 import { Address } from '@/domain/entities'
 
@@ -16,7 +16,7 @@ const mockAddress = (): Address => ({
 })
 
 type SutTypes = {
-  sut: any
+  sut: AddAddressUseCase
   checkAddressRepoSpy: CheckAddressRepoSpy
   addAddressRepoSpy: AddAddressRepoSpy
 }

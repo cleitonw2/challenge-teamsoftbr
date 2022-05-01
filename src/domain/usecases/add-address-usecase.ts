@@ -1,10 +1,7 @@
 import { AddAddressRepo, CheckAddressRepo } from '../contracts'
 import { Address } from '../entities'
 
-type Params = { params: Address }
-type Result = { result: boolean }
-
-export type AddAddressUseCase = (params: Params) => Promise<Result>
+export type AddAddressUseCase = (params: Address) => Promise<boolean>
 
 export const addAddressUseCase =
   (checkAddressRepo: CheckAddressRepo, addAddressRepo: AddAddressRepo) =>
