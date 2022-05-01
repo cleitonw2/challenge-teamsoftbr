@@ -1,5 +1,5 @@
 import { addAddressUseCase, AddAddressUseCase } from '@/domain/usecases'
-import { CheckAddressRepoSpy, AddAddressRepoSpy } from '@/tests/domain/mocks'
+import { CheckAddressRepoSpy, AddAddressRepoSpy, LoadCoordinatesApiSpy } from '@/tests/domain/mocks'
 import { Address } from '@/domain/entities'
 
 const mockAddress = (): Address => ({
@@ -10,24 +10,25 @@ const mockAddress = (): Address => ({
   city: 'any_city',
   state: 'any_state',
   cep: 'any_cep',
-  customerCep: 'any',
-  latitude: 'any',
-  longitude: 'any'
+  customerCep: 'any'
 })
 
 type SutTypes = {
   sut: AddAddressUseCase
   checkAddressRepoSpy: CheckAddressRepoSpy
   addAddressRepoSpy: AddAddressRepoSpy
+  loadCoordinatesApiSpy: LoadCoordinatesApiSpy
 }
 
 const makeSut = (): SutTypes => {
   const checkAddressRepoSpy = new CheckAddressRepoSpy()
+  const loadCoordinatesApiSpy = new LoadCoordinatesApiSpy()
   const addAddressRepoSpy = new AddAddressRepoSpy()
-  const sut = addAddressUseCase(checkAddressRepoSpy, addAddressRepoSpy)
+  const sut = addAddressUseCase(checkAddressRepoSpy, loadCoordinatesApiSpy, addAddressRepoSpy)
   return {
     sut,
     checkAddressRepoSpy,
+    loadCoordinatesApiSpy,
     addAddressRepoSpy
   }
 }
@@ -51,15 +52,22 @@ describe('AddAddress UseCase', () => {
   })
 
   it('Should call AddAddressRepo with correct params', async () => {
-    const { sut, addAddressRepoSpy } = makeSut()
+    const { sut, addAddressRepoSpy, loadCoordinatesApiSpy } = makeSut()
     const data = mockAddress()
     await sut(data)
-    expect(addAddressRepoSpy.params).toEqual(data)
+    expect(addAddressRepoSpy.params).toEqual({ ...data, ...loadCoordinatesApiSpy.result })
   })
 
   it('Should retun true on success', async () => {
     const { sut } = makeSut()
     const result = await sut(mockAddress())
     expect(result).toBe(true)
+  })
+
+  it('Should call LoadCoordinatesApi with correct params', async () => {
+    const { sut, loadCoordinatesApiSpy } = makeSut()
+    const data = mockAddress()
+    await sut(data)
+    expect(loadCoordinatesApiSpy.cep).toBe(data.cep)
   })
 })
