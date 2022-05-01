@@ -6,11 +6,12 @@ export type CustomerResult = {
   address: Address[]
 }
 
-export type LoadCustomerUseCase = (cnpj: string) => Promise<CustomerResult>
+export type LoadCustomerUseCase = (cnpj: string) => Promise<CustomerResult | boolean>
 
 export const loadCustomerUseCase =
   (loadCustomerRepo: LoadCustomerRepo) =>
     async (cnpj: string) => {
-      await loadCustomerRepo.load(cnpj)
+      const customer = await loadCustomerRepo.load(cnpj)
+      if (!customer) return false
       return { } as any
     }
