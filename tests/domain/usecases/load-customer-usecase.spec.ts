@@ -37,4 +37,13 @@ describe('LoadCustomer UseCase', () => {
     await sut('any_cnpj')
     expect(loadAddressRepoSpy.cnpj).toBe('any_cnpj')
   })
+
+  it('Should return customer on success', async () => {
+    const { sut, loadCustomerRepoSpy, loadAddressRepoSpy } = makeSut()
+    const result = await sut('any_cnpj')
+    expect(result).toEqual({
+      customer: loadCustomerRepoSpy.result,
+      address: loadAddressRepoSpy.result
+    })
+  })
 })
