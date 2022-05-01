@@ -10,9 +10,12 @@ export type LoadCustomerUseCase = (cnpj: string) => Promise<CustomerResult | boo
 
 export const loadCustomerUseCase =
   (loadCustomerRepo: LoadCustomerRepo, LoadAddressRepo: LoadAddressRepo) =>
-    async (cnpj: string) => {
+    async (cnpj: string): Promise<CustomerResult | boolean> => {
       const customer = await loadCustomerRepo.load(cnpj)
       if (!customer) return false
-      await LoadAddressRepo.load(cnpj)
-      return { } as any
+      const addresses = await LoadAddressRepo.load(cnpj)
+      return {
+        customer: customer as Customer,
+        address: addresses
+      }
     }
