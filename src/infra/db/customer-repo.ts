@@ -16,7 +16,7 @@ DeleteContentRepo, UpdateContentRepo {
 
   async load (cnpj: string): Promise<Customer> {
     const customersCollection = await MongoHelper.getCollection('customers')
-    const collection = await customersCollection.findOne({ customerCnpj: cnpj })
+    const collection = await customersCollection.findOne({ cnpj: cnpj })
     return collection ? MongoHelper.map(collection) : false
   }
 
