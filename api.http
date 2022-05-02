@@ -1,8 +1,33 @@
-POST http://localhost:3000/
+POST http://localhost:3000/customer
 Content-Type: application/json
 
 {
-  "value": "any_value"
+  "customer": {
+    "cnpj": "92.549.468/0001-58",
+    "corporateName": "any",
+    "contactName": "any",
+    "phone": "23429192302"
+  },
+  "addresses": [
+    {
+      "publicPlace": "Praça da bandeira",
+      "addressNumber": 123,
+      "complement": "",
+      "district": "any",
+      "city": "any",
+      "state": "any",
+      "cep": "99.735-000"
+    },
+    {
+      "publicPlace": "Praça da bandeira",
+      "addressNumber": 125,
+      "complement": "",
+      "district": "any",
+      "city": "any",
+      "state": "any",
+      "cep": "99.735-000"
+    }
+  ]
 }
 
 ###
