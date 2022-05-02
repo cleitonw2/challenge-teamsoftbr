@@ -8,7 +8,7 @@ const makeValidation = (): Validation => {
   const customerValidation = new CustomerValidation(
     'customer',
     ['cnpj', 'corporateName', 'contactName', 'phone'],
-    [['cnpj', ''], ['corporateName', ''], ['complement', ''], ['contactName', ''], ['phone', '']]
+    [['cnpj', ''], ['corporateName', ''], ['contactName', ''], ['phone', '']]
   )
   const addressValidation = new AddressValidation(
     'addresses',

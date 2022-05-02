@@ -12,7 +12,6 @@ Content-Type: application/json
     {
       "publicPlace": "Praça da bandeira",
       "addressNumber": 123,
-      "complement": "",
       "district": "any",
       "city": "any",
       "state": "any",
@@ -21,7 +20,7 @@ Content-Type: application/json
     {
       "publicPlace": "Praça da bandeira",
       "addressNumber": 125,
-      "complement": "",
+      "complement": "any",
       "district": "any",
       "city": "any",
       "state": "any",
@@ -42,7 +41,7 @@ Content-Type: application/json
     "city": "any",
     "state": "any",
     "cep": "99.735-000",
-    "customerCnpj": "92.549.468/0001-58"
+    "customerCnpj": "59.104.422/0001-50"
   }
 }
 
@@ -51,4 +50,4 @@ GET http://localhost:3000/
 Content-Type: application/json
 
 ###
-DELETE http://localhost:3000/134123412343234
+DELETE http://localhost:3000/customer?cnpj=92.549.468/0001-58
