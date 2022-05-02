@@ -29,6 +29,22 @@ Content-Type: application/json
     }
   ]
 }
+###
+POST http://localhost:3000/address
+Content-Type: application/json
+
+{
+  "address":{
+    "publicPlace": "Praça da bandeira",
+    "addressNumber": 126,
+    "complement": "",
+    "district": "any",
+    "city": "any",
+    "state": "any",
+    "cep": "99.735-000",
+    "customerCnpj": "92.549.468/0001-58"
+  }
+}
 
 ###
 GET http://localhost:3000/

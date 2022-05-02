@@ -8,7 +8,7 @@ const makeValidation = (): Validation => {
   const customerValidation = new CustomerValidation(
     'customer',
     ['cnpj', 'corporateName', 'contactName', 'phone'],
-    [['cnpj', ''], ['corporateName', ''], ['contactName', ''], ['phone', '']]
+    [['cnpj', ''], ['corporateName', ''], ['complement', ''], ['contactName', ''], ['phone', '']]
   )
   const addressValidation = new AddressValidation(
     'addresses',
@@ -19,7 +19,7 @@ const makeValidation = (): Validation => {
   return new ValidationComposite(validations)
 }
 
-export const makeController = (): Controller => {
+export const makeAddCustomerController = (): Controller => {
   return new AddCustomerController(
     makeValidation(),
     makeAddCustomerUseCase(),
