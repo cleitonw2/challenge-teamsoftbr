@@ -4,27 +4,26 @@ Content-Type: application/json
 {
   "customer": {
     "cnpj": "92.549.468/0001-58",
-    "corporateName": "any",
-    "contactName": "any",
-    "phone": "23429192302"
+    "corporateName": "Mercado Bom Preço LTDA",
+    "contactName": "Mercado Bom Preço",
+    "phone": "(23)429192302"
   },
   "addresses": [
     {
       "publicPlace": "Praça da bandeira",
       "addressNumber": 123,
-      "district": "any",
-      "city": "any",
-      "state": "any",
-      "cep": "99.735-000"
+      "district": "Bairro boa Vista",
+      "city": "Ghapecó",
+      "state": "SC",
+      "cep": "89.801-023"
     },
     {
       "publicPlace": "Praça da bandeira",
-      "addressNumber": 125,
-      "complement": "any",
-      "district": "any",
-      "city": "any",
-      "state": "any",
-      "cep": "99.735-000"
+      "addressNumber": 18,
+      "district": "Bairro Esperança",
+      "city": "Balneário",
+      "state": "SC",
+      "cep": "88.330-015"
     }
   ]
 }
@@ -40,9 +39,9 @@ Content-Type: application/json
 {
   "customer": {
     "cnpj": "92.549.468/0001-58",
-    "corporateName": "Americanas",
-    "contactName": "any",
-    "phone": "23429192302"
+    "corporateName": "Mercado Preço Bom LTDA",
+    "contactName": "Mercado Preço Bom",
+    "phone": "(24)291923028"
   }
 }
 
@@ -50,18 +49,21 @@ Content-Type: application/json
 DELETE http://localhost:3000/customer?cnpj=92.549.468/0001-58
 
 ###
+GET http://localhost:3000/address?cnpj=92.549.468/0001-58
+Content-Type: application/json
+
+###
 PUT http://localhost:3000/address
 Content-Type: application/json
 
 {
-  "address":{
-    "publicPlace": "Rua Alberto Nobrega",
-    "addressNumber": 123,
-    "complement": "predio azul",
-    "district": "Bairro Luz",
-    "city": "any",
-    "state": "São Paulo",
-    "cep": "99.735-000",
+  "address": {
+    "publicPlace": "Prainha",
+    "addressNumber": 18,
+    "district": "Bairro",
+    "city": "Balneário",
+    "state": "SC",
+    "cep": "88.330-015",
     "customerCnpj": "92.549.468/0001-58"
   }
 }
@@ -72,13 +74,15 @@ Content-Type: application/json
 
 {
   "address":{
-    "publicPlace": "Praça da bandeira",
+    "publicPlace": "Praça da Paz",
     "addressNumber": 126,
-    "complement": "",
-    "district": "any",
-    "city": "any",
-    "state": "any",
-    "cep": "99.735-000",
-    "customerCnpj": "59.104.422/0001-50"
+    "district": "Vila das Flores",
+    "city": "Estação",
+    "state": "SP",
+    "cep": "13.484-019",
+    "customerCnpj": "92.549.468/0001-58"
   }
 }
+
+###
+DELETE http://localhost:3000/address?cnpj=92.549.468/0001-58&cep=13.484-019&addressNumber=126
