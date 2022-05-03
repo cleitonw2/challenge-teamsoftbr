@@ -1,9 +1,16 @@
-import { AddContentRepo, CheckContentRepo, LoadContentRepo, DeleteContentRepo, UpdateContentRepo } from '@/domain/contracts'
+import {
+  AddContentRepo,
+  CheckContentRepo,
+  LoadContentRepo,
+  DeleteContentRepo,
+  UpdateContentRepo,
+  DeleteAddressRepo
+} from '@/domain/contracts'
 import { Address } from '@/domain/entities'
 import { MongoHelper } from './mongo-helper'
 
 export class AddressRepo implements AddContentRepo, CheckContentRepo, LoadContentRepo,
-DeleteContentRepo, UpdateContentRepo {
+DeleteContentRepo, UpdateContentRepo, DeleteAddressRepo {
   async add (params: Address): Promise<boolean> {
     const addressesCollection = await MongoHelper.getCollection('addresses')
     return !!await addressesCollection.insertOne(params)
@@ -34,5 +41,10 @@ DeleteContentRepo, UpdateContentRepo {
   async delete (cnpj: string): Promise<void> {
     const addressesCollection = await MongoHelper.getCollection('addresses')
     await addressesCollection.deleteMany({ customerCnpj: cnpj })
+  }
+
+  async deleteOne (cnpj: string, cep: string, addressNumber: number): Promise<void> {
+    const addressesCollection = await MongoHelper.getCollection('addresses')
+    await addressesCollection.deleteOne({ customerCnpj: cnpj, cep, addressNumber })
   }
 }
