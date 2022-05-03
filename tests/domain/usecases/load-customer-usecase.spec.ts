@@ -1,20 +1,17 @@
 import { loadCustomerUseCase, LoadCustomerUseCase } from '@/domain/usecases'
-import { LoadCustomerRepoSpy, LoadAddressRepoSpy } from '@/tests/domain/mocks'
+import { LoadCustomerRepoSpy } from '@/tests/domain/mocks'
 
 type SutTypes = {
   sut: LoadCustomerUseCase
   loadCustomerRepoSpy: LoadCustomerRepoSpy
-  loadAddressRepoSpy: LoadAddressRepoSpy
 }
 
 const makeSut = (): SutTypes => {
   const loadCustomerRepoSpy = new LoadCustomerRepoSpy()
-  const loadAddressRepoSpy = new LoadAddressRepoSpy()
-  const sut = loadCustomerUseCase(loadCustomerRepoSpy, loadAddressRepoSpy)
+  const sut = loadCustomerUseCase(loadCustomerRepoSpy)
   return {
     sut,
-    loadCustomerRepoSpy,
-    loadAddressRepoSpy
+    loadCustomerRepoSpy
   }
 }
 
@@ -25,29 +22,17 @@ describe('LoadCustomer UseCase', () => {
     expect(loadCustomerRepoSpy.cnpj).toBe('any_cnpj')
   })
 
-  it('Should return empty if repositories returns empty result', async () => {
-    const { sut, loadCustomerRepoSpy, loadAddressRepoSpy } = makeSut()
+  it('Should return empty if LoadCustomerRepo returns empty result', async () => {
+    const { sut, loadCustomerRepoSpy } = makeSut()
     loadCustomerRepoSpy.result = {}
-    loadAddressRepoSpy.result = []
     const res = await sut('any_cnpj')
-    expect(res).toEqual({
-      customer: {},
-      addresses: []
-    })
+    expect(res).toEqual({})
   })
 
-  it('Should call LoadAddressRepo with correct param', async () => {
-    const { sut, loadAddressRepoSpy } = makeSut()
-    await sut('any_cnpj')
-    expect(loadAddressRepoSpy.cnpj).toBe('any_cnpj')
-  })
-
-  it('Should return customer and addresses on success', async () => {
-    const { sut, loadCustomerRepoSpy, loadAddressRepoSpy } = makeSut()
+  it('Should return a customer on success', async () => {
+    const { sut, loadCustomerRepoSpy } = makeSut()
     const result = await sut('any_cnpj')
-    expect(result).toEqual({
-      customer: loadCustomerRepoSpy.result,
-      addresses: loadAddressRepoSpy.result
-    })
+    const customer = loadCustomerRepoSpy.result
+    expect(result).toEqual(customer)
   })
 })

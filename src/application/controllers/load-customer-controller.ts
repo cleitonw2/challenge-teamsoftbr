@@ -21,7 +21,7 @@ export class LoadCustomerController extends Controller {
       customer: request
     })
     if (error) return badRequest(error)
-    const result = await this.loadCustomer(request.cnpj)
-    return ok(result)
+    const customer = await this.loadCustomer(request.cnpj)
+    return ok({ customer })
   }
 }
