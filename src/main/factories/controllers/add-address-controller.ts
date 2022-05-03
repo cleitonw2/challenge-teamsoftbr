@@ -1,7 +1,7 @@
 import { AddAddressController } from '@/application/controllers'
 import { Controller } from '@/application/controllers/controller'
 import { Validation, AddressValidation, ValidationComposite } from '@/application/validations'
-import { makeAddAddressUseCase } from '../usecases'
+import { makeAddAddressUseCase, makeCheckCustomerUseCase } from '../usecases'
 
 const makeValidation = (): Validation => {
   const validations: any[] = []
@@ -26,6 +26,7 @@ const makeValidation = (): Validation => {
 export const makeAddAddressController = (): Controller => {
   return new AddAddressController(
     makeValidation(),
+    makeCheckCustomerUseCase(),
     makeAddAddressUseCase()
   )
 }

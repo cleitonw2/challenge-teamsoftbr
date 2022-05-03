@@ -1,5 +1,5 @@
 import { Address } from '@/domain/entities'
-import { AddAddressUseCase } from '@/domain/usecases'
+import { AddAddressUseCase, CheckCustomerUseCase } from '@/domain/usecases'
 import { Validation } from '../validations'
 import { Controller } from './controller'
 import { badRequest, forbidden, noContent } from './helper'
@@ -12,6 +12,7 @@ type Request = {
 export class AddAddressController extends Controller {
   constructor (
     private readonly validation: Validation,
+    private readonly checkCustomer: CheckCustomerUseCase,
     private readonly addAddress: AddAddressUseCase
   ) {
     super()
@@ -22,6 +23,8 @@ export class AddAddressController extends Controller {
       address: [request.address]
     })
     if (error) return badRequest(error)
+    const checkCnpj = await this.checkCustomer(request.address.customerCnpj)
+    if (!checkCnpj) return forbidden('esse cliente ainda não foi cadastrado!')
     const isSuccess = await this.addAddress(request.address)
     if (!isSuccess) return forbidden('endereço já foi cadastrado!')
     return noContent()
