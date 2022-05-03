@@ -1,20 +1,20 @@
 import { deleteCustomerUseCase, DeleteCustomerUseCase } from '@/domain/usecases'
-import { DeleteCustomerRepoSpy, DeleteAddressRepoSpy } from '@/tests/domain/mocks'
+import { DeleteCustomerRepoSpy, DeleteAddressesRepoSpy } from '@/tests/domain/mocks'
 
 type SutTypes = {
   sut: DeleteCustomerUseCase
   deleteCustomerRepoSpy: DeleteCustomerRepoSpy
-  deleteAddressRepoSpy: DeleteAddressRepoSpy
+  deleteAddressesRepoSpy: DeleteAddressesRepoSpy
 }
 
 const makeSut = (): SutTypes => {
   const deleteCustomerRepoSpy = new DeleteCustomerRepoSpy()
-  const deleteAddressRepoSpy = new DeleteAddressRepoSpy()
-  const sut = deleteCustomerUseCase(deleteCustomerRepoSpy, deleteAddressRepoSpy)
+  const deleteAddressesRepoSpy = new DeleteAddressesRepoSpy()
+  const sut = deleteCustomerUseCase(deleteCustomerRepoSpy, deleteAddressesRepoSpy)
   return {
     sut,
     deleteCustomerRepoSpy,
-    deleteAddressRepoSpy
+    deleteAddressesRepoSpy
   }
 }
 
@@ -27,9 +27,9 @@ describe('DeleteCustomer UseCase', () => {
   })
 
   it('Should call DeleteAddressRepo with correct param', async () => {
-    const { sut, deleteAddressRepoSpy } = makeSut()
+    const { sut, deleteAddressesRepoSpy } = makeSut()
     const cnpj = Math.random.toString()
     await sut(cnpj)
-    expect(deleteAddressRepoSpy.cnpj).toEqual(cnpj)
+    expect(deleteAddressesRepoSpy.cnpj).toEqual(cnpj)
   })
 })
