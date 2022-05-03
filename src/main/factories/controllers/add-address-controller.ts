@@ -11,7 +11,6 @@ const makeValidation = (): Validation => {
     [
       ['publicPlace', ''],
       ['addressNumber', 1],
-      ['complement', ''],
       ['district', ''],
       ['city', ''],
       ['state', ''],
