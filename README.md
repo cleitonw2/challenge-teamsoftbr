@@ -1,5 +1,26 @@
 # Teamsoft
 
+## Rodando o projeto
+Execute os comandos a seguir e você terá uma versão local do projeto em execução.
+```bash
+$ git clone https://github.com/cleitonw2/challenge-teamsoftbr.git
+$ cd challenge-teamsoftbr/
+$ npm install
+```
+Renomeie o arquivo `.env.example` para `.env` e preencha a variável MONGO_URL. Inicie o servidor com:
+
+```bash
+$ npm run build && npm start
+```
+
+Se preferir pode utilizar o docker
+```bash
+$ docker-compose up
+$ docker-compose down
+```
+
+Para ver a documentação acesse http://localhost:3000/api-docs/ 
+
 ## Quem somos
 Somos apaixonados por desenvolver soluções que fazem a diferença na vida das pessoas. 
 Conhecimento técnico é muito importante, mas acima de tudo, buscamos pessoas que queiram crescer e se desenvolver junto conosco. 
