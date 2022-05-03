@@ -25,11 +25,15 @@ describe('LoadCustomer UseCase', () => {
     expect(loadCustomerRepoSpy.cnpj).toBe('any_cnpj')
   })
 
-  it('Should return false if LoadCustomerRepo returns false', async () => {
-    const { sut, loadCustomerRepoSpy } = makeSut()
-    loadCustomerRepoSpy.result = false
+  it('Should return empty if repositories returns empty result', async () => {
+    const { sut, loadCustomerRepoSpy, loadAddressRepoSpy } = makeSut()
+    loadCustomerRepoSpy.result = {}
+    loadAddressRepoSpy.result = []
     const res = await sut('any_cnpj')
-    expect(res).toBe(false)
+    expect(res).toEqual({
+      customer: {},
+      addresses: []
+    })
   })
 
   it('Should call LoadAddressRepo with correct param', async () => {
@@ -38,12 +42,12 @@ describe('LoadCustomer UseCase', () => {
     expect(loadAddressRepoSpy.cnpj).toBe('any_cnpj')
   })
 
-  it('Should return customer on success', async () => {
+  it('Should return customer and addresses on success', async () => {
     const { sut, loadCustomerRepoSpy, loadAddressRepoSpy } = makeSut()
     const result = await sut('any_cnpj')
     expect(result).toEqual({
       customer: loadCustomerRepoSpy.result,
-      address: loadAddressRepoSpy.result
+      addresses: loadAddressRepoSpy.result
     })
   })
 })

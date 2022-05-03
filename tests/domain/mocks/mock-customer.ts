@@ -21,16 +21,16 @@ export class AddCustomerRepoSpy implements AddContentRepo<Customer> {
   }
 }
 
-export class LoadCustomerRepoSpy implements LoadContentRepo<Customer | boolean> {
+export class LoadCustomerRepoSpy implements LoadContentRepo<Customer | {}> {
   cnpj: string
-  result: Customer | boolean = {
+  result: Customer | {} = {
     cnpj: Math.random().toString(),
     corporateName: 'any',
     contactName: 'any',
     phone: 'any'
   }
 
-  async load (cnpj: string): Promise<Customer | boolean> {
+  async load (cnpj: string): Promise<Customer | {}> {
     this.cnpj = cnpj
     return Promise.resolve(this.result)
   }
