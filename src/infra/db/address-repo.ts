@@ -21,10 +21,10 @@ DeleteContentRepo, UpdateContentRepo {
   }
 
   async update (params: Address): Promise<void> {
-    const { addressNumber, ...rest } = params
+    const { customerCnpj, addressNumber, cep, ...rest } = params
     const addressesCollection = await MongoHelper.getCollection('addresses')
     await addressesCollection.updateOne(
-      { addressNumber },
+      { customerCnpj, addressNumber, cep },
       {
         $set: { ...rest }
       }

@@ -1,5 +1,5 @@
 import { Router } from 'express'
-import { makeAddCustomerController } from '../factories/controllers'
+import { makeAddCustomerController, makeUpdateCustomerController } from '../factories/controllers'
 import { makeDeleteCustomerController } from '../factories/controllers/delete-customer-controller'
 import { makeLoadCustomerController } from '../factories/controllers/load-customer-controller'
 
@@ -19,6 +19,15 @@ customerRoutes.get('/', async (req, res) => {
     ...req.query
   }
   const controller = makeLoadCustomerController()
+  const httpResponse = await controller.handle(request)
+  return res.status(httpResponse.statusCode).json(httpResponse.body)
+})
+
+customerRoutes.put('/', async (req, res) => {
+  const request = {
+    ...req.body
+  }
+  const controller = makeUpdateCustomerController()
   const httpResponse = await controller.handle(request)
   return res.status(httpResponse.statusCode).json(httpResponse.body)
 })

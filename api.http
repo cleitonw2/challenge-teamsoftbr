@@ -28,6 +28,44 @@ Content-Type: application/json
     }
   ]
 }
+
+###
+GET http://localhost:3000/customer?cnpj=92.549.468/0001-58
+Content-Type: application/json
+
+###
+PUT http://localhost:3000/customer
+Content-Type: application/json
+
+{
+  "customer": {
+    "cnpj": "92.549.468/0001-58",
+    "corporateName": "Americanas",
+    "contactName": "any",
+    "phone": "23429192302"
+  }
+}
+
+###
+DELETE http://localhost:3000/customer?cnpj=92.549.468/0001-58
+
+###
+PUT http://localhost:3000/address
+Content-Type: application/json
+
+{
+  "address":{
+    "publicPlace": "Rua Alberto Nobrega",
+    "addressNumber": 123,
+    "complement": "predio azul",
+    "district": "Bairro Luz",
+    "city": "any",
+    "state": "São Paulo",
+    "cep": "99.735-000",
+    "customerCnpj": "92.549.468/0001-58"
+  }
+}
+
 ###
 POST http://localhost:3000/address
 Content-Type: application/json
@@ -44,10 +82,3 @@ Content-Type: application/json
     "customerCnpj": "59.104.422/0001-50"
   }
 }
-
-###
-GET http://localhost:3000/customer?cnpj=92.549.468/0001-58
-Content-Type: application/json
-
-###
-DELETE http://localhost:3000/customer?cnpj=92.549.468/0001-58
