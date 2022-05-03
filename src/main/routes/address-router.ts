@@ -2,7 +2,8 @@ import { Router } from 'express'
 import {
   makeAddAddressController,
   makeUpdateAddressController,
-  makeLoadAddressesController
+  makeLoadAddressesController,
+  makeDeleteAddressController
 } from '../factories/controllers'
 
 const addressRoutes = Router()
@@ -27,10 +28,18 @@ addressRoutes.post('/', async (req, res) => {
 
 addressRoutes.put('/', async (req, res) => {
   const request = {
-    ...req.body,
-    ...req.query
+    ...req.body
   }
   const controller = makeUpdateAddressController()
+  const httpResponse = await controller.handle(request)
+  return res.status(httpResponse.statusCode).json(httpResponse.body)
+})
+
+addressRoutes.delete('/', async (req, res) => {
+  const request = {
+    ...req.query
+  }
+  const controller = makeDeleteAddressController()
   const httpResponse = await controller.handle(request)
   return res.status(httpResponse.statusCode).json(httpResponse.body)
 })
