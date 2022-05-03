@@ -1,7 +1,10 @@
 import { Router } from 'express'
-import { makeAddCustomerController, makeUpdateCustomerController } from '../factories/controllers'
-import { makeDeleteCustomerController } from '../factories/controllers/delete-customer-controller'
-import { makeLoadCustomerController } from '../factories/controllers/load-customer-controller'
+import {
+  makeAddCustomerController,
+  makeUpdateCustomerController,
+  makeDeleteCustomerController,
+  makeLoadCustomerController
+} from '../factories/controllers'
 
 const customerRoutes = Router()
 
